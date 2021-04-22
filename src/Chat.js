@@ -5,14 +5,27 @@ import ChatIcon from "@material-ui/icons/Chat";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-import { AttachFile, SearchOutlined } from "@material-ui/icons";
+import {
+  AttachFile,
+  InsertEmoticon,
+  Mic,
+  SearchOutlined,
+} from "@material-ui/icons";
 
 function Chat() {
+  const [input, setInput] = useState("");
   const [seed, setSeed] = useState("");
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
   }, []);
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    console.log("You typed >>>>", input);
+
+    setInput("");
+  };
 
   return (
     <div className="chat">
@@ -44,7 +57,22 @@ function Chat() {
         <p className="chat__message">Hey!!!!!!!!!</p>
       </div>
 
-      <div className="chat__footer"></div>
+      <div className="chat__footer">
+        <InsertEmoticon />
+        <form>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a Message"
+            type="text"
+          />
+          <button type="submit" onClick={sendMessage}>
+            Send
+          </button>
+        </form>
+
+        <Mic />
+      </div>
     </div>
   );
 }
