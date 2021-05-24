@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Chat from "./Chat";
 import Sidebar from "./Sidebar";
+import Login from "./Login";
+import { auth } from "./firebase";
 
 function App() {
+  const [user, setUser] = useState(null);
   return (
     //BEM Naming Convention
     <div className="app">
-      <div className="app__body">
-        <Router>
-          <Sidebar />
-          <Switch>
-            <Route path="/rooms/:roomId">
-              <Chat />
-            </Route>
-            <Route path="/">
-              <Chat />
-            </Route>
-          </Switch>
-        </Router>
+      {!user ? (
+        <Login />
+      ) : (
+        <div className="app__body">
+          <Router>
+            <Sidebar />
+            <Switch>
+              <Route path="/rooms/:roomId">
+                <Chat />
+              </Route>
+              <Route path="/">
+                <Chat />
+              </Route>
+            </Switch>
+          </Router>
 
-        {/* Chat */}
-      </div>
+          {/* Chat */}
+        </div>
+      )}
     </div>
   );
 }
