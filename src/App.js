@@ -4,10 +4,12 @@ import "./App.css";
 import Chat from "./Chat";
 import Sidebar from "./Sidebar";
 import Login from "./Login";
-import { auth } from "./firebase";
+import { useStateValue } from "./StateProvider";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [{ user }, dispatch] = useStateValue();
+
+  // const [user, setUser] = useState(null);
   return (
     //BEM Naming Convention
     <div className="app">
